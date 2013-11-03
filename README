@@ -1,0 +1,18 @@
+I am rewritting all of my tiny, useful scripts in node.js. I've been tired or
+writing them in bash for some time, however, I haven't found a good
+replacement. I've never enjoyed writing tiny scripts in pyton or ruby. Python,
+because I've never really gotten into it, and I have way too many languages I
+want to learn that are a higher priority. Ruby, because I find the startup time
+way too long for a 10 line script.
+
+The pilot script I am starting with is my git flow management script that is
+getting unwieldy. I was trying to add something relatively simple: rolling back
+Rails migrations before switching to another branch.  When trying to write it,
+bash did nothing but get in the way. I am thoroughly excited to get this
+working, since many of the things I want to automate, I deal with many times
+every day. There are many more possibilities that I haven't even considered,
+since I knew how much of a pain it would be to get it right.
+
+Here is the blog I read that started this inspiration:
+
+http://blog.liangzan.net/blog/2012/07/30/how-to-write-a-command-line-application-in-node-dot-js/
