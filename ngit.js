@@ -1,25 +1,30 @@
 #!/usr/local/bin/node
 
-console.log('GIT!');
+VERSION="0.0.0"
+
+console.log('Version:', VERSION);
 
 /*
 Inprogress:
 
-VERSIONing
+Setup npm for project
 
 Prioritized:
 
-Setup npm for project
 Pick and intall cli parser
 Setup cli parsing
+VERSION="0.0.1"
 Setting my *current* branch
 Setting my *other* branch
 Add gitlist functionality
+VERSION="0.0.2"
 Setup *master* and *develop*
 Switching around branches
+VERSION="0.0.3"
 
 Backlog:
 
+Define what goes into 0.1.0
 Pick and install colorer
 Checkout branches from origin into local repos
 
@@ -50,6 +55,8 @@ DB Migrations
   - Rolling back the list of migrations not in a branch
 
 Done:
+
+VERSIONing
 
  */
 
