@@ -5,34 +5,37 @@ console.log('GIT!');
 /*
 Inprogress:
 
-Prioritized:
+VERSIONing
 
-Backlog:
+Prioritized:
 
 Setup npm for project
 Pick and intall cli parser
-Pick and install colorer
 Setup cli parsing
+Setting my *current* branch
+Setting my *other* branch
+Add gitlist functionality
+Setup *master* and *develop*
+Switching around branches
+
+Backlog:
+
+Pick and install colorer
 Checkout branches from origin into local repos
 
 Setting my branches
-  - Current
-  - Other
   - Release
   - Hotfix
   - 1-9
   - Unsetting
   - Max and Javon
 
-
 List of branches
-  - gitlist
-  - colors
+  - colors to gitlist
   - Numberify branches to be able to set branch by number
   - Interactive mode that lets you select/unselect branches for different modes
 
 General branch management
-  - Switching
   - Merging
   - Updating
   - Updating and merging
@@ -45,6 +48,9 @@ DB Migrations
   - Running migrations after swiching to a branch
   - Getting a list of migrations no in another branch
   - Rolling back the list of migrations not in a branch
+
+Done:
+
  */
 
 // What to do here?
