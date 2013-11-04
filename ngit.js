@@ -9,6 +9,7 @@ BRANCHES=".git_branches"
 
 options = stdio.getopt({
   'version': {key: 'v', description: 'Current version'},
+  'list': {key: 'l', description: 'List all named branches'},
   'set': {key: 's', args: 2, description: 'Set a stored branch'}
 });
 
@@ -20,6 +21,26 @@ if (options.version) {
 if (!isGit()) {
   process.stderr.write('Not in a git repo\n');
   process.exit(1);
+}
+
+
+/*
+ * List all named branches
+ */
+if (options.list) {
+  if (!fs.existsSync(BRANCHES)) {
+    console.log('There is no', BRANCHES, 'file in this repo');
+    process.exit(0);
+  }
+
+  branchData = jf.readFileSync(BRANCHES);
+
+  if (branchData['current']) {
+    console.log('Current:\t', branchData['current']);
+  }
+  if (branchData['other']) {
+    console.log('Other:\t\t', branchData['other']);
+  }
 }
 
 
@@ -63,12 +84,10 @@ function isGit() {
 /*
 Inprogress:
 
-Setting my *other* branch
+VERSION="0.0.2"
 
 Prioritized:
 
-Add gitlist functionality
-VERSION="0.0.2"
 Setup *master* and *develop*
 Switching around branches
 VERSION="0.0.3"
@@ -110,6 +129,8 @@ DB Migrations
 
 Done:
 
+Add gitlist functionality
+Setting my *other* branch
 Setting my *current* branch
 
 VERSION="0.0.0"
