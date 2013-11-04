@@ -4,7 +4,7 @@ stdio = require('stdio'),
 fs = require('fs'),
 jf = require('jsonfile');
 
-VERSION="0.0.1"
+VERSION="0.0.2"
 BRANCHES=".git_branches"
 
 options = stdio.getopt({
@@ -13,6 +13,10 @@ options = stdio.getopt({
   'set': {key: 's', args: 2, description: 'Set a stored branch'}
 });
 
+
+/*
+ * Display version info and exit
+ */
 if (options.version) {
   console.log('VERSION:', VERSION);
   return 0;
@@ -78,7 +82,6 @@ if (options.set) {
 /*
 Inprogress:
 
-VERSION="0.0.2"
 
 Prioritized:
 
@@ -123,6 +126,7 @@ DB Migrations
 
 Done:
 
+VERSION="0.0.1"
 Add gitlist functionality
 Setting my *other* branch
 Setting my *current* branch
