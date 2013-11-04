@@ -7,12 +7,10 @@ console.log('Version:', VERSION);
 /*
 Inprogress:
 
-Setup npm for project
+Setup cli parsing
 
 Prioritized:
 
-Pick and intall cli parser
-Setup cli parsing
 VERSION="0.0.1"
 Setting my *current* branch
 Setting my *other* branch
@@ -56,6 +54,8 @@ DB Migrations
 
 Done:
 
+Pick and intall cli parser
+Setup npm for project
 VERSIONing
 
  */

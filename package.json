@@ -1,0 +1,9 @@
+{
+  "name": "ncli",
+  "description": "A collection of helpful scripts I use regularly.",
+  "author": "Jason Cox <jasonwilburcox@gmail.com>",
+  "repository": "http://www.github.com/jasocox/ncli",
+  "dependencies": {
+    "celery": "0.0.x"
+  }
+}
