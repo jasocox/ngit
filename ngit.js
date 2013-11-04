@@ -1,16 +1,40 @@
 #!/usr/local/bin/node
 
-stdio = require('stdio');
+stdio = require('stdio'),
+fs = require('fs');
 
 VERSION="0.0.1"
 
 options = stdio.getopt({
-  'version': {key: 'v', description: 'Current version'}
+  'version': {key: 'v', description: 'Current version'},
+  'set': {key: 's', args: 2, description: 'Set a stored branch'}
 });
 
 if (options.version) {
   console.log('VERION:', VERSION);
   return 0;
+}
+
+if (!isGit()) {
+  process.stderr.write('Not in a git repo\n');
+  process.exit(1);
+}
+
+if (options.set) {
+  if (options.set[0] == 'c') {
+    var current = options.set[1];
+    console.log('Set current branch to:', current);
+  }
+}
+
+function isGit() {
+  var gitPath = './.git';
+
+  if (!fs.existsSync(gitPath)) {
+    return false;
+  }
+
+  return fs.statSync(gitPath).isDirectory();
 }
 
 /*
