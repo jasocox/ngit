@@ -1,9 +1,11 @@
 #!/usr/local/bin/node
 
 stdio = require('stdio'),
-fs = require('fs');
+fs = require('fs'),
+jf = require('jsonfile');
 
 VERSION="0.0.1"
+BRANCHES=".git_branches"
 
 options = stdio.getopt({
   'version': {key: 'v', description: 'Current version'},
@@ -25,6 +27,11 @@ if (options.set) {
     var current = options.set[1];
     console.log('Set current branch to:', current);
   }
+
+  branchData = {
+    current: current
+  }
+  jf.writeFileSync(BRANCHES, branchData);
 }
 
 function isGit() {
@@ -40,11 +47,10 @@ function isGit() {
 /*
 Inprogress:
 
-Setting my *current* branch
+Setting my *other* branch
 
 Prioritized:
 
-Setting my *other* branch
 Add gitlist functionality
 VERSION="0.0.2"
 Setup *master* and *develop*
@@ -87,6 +93,8 @@ DB Migrations
   - Rolling back the list of migrations not in a branch
 
 Done:
+
+Setting my *current* branch
 
 VERSION="0.0.0"
 Setup cli parsing
