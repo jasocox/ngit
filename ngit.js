@@ -91,7 +91,7 @@ if (options.set) {
   }
 
   var setting = namedBranches[options.set[0]],
-  branchData = readBranchesFile();
+  branchData = readBranchesFile(false);
 
   console.log('Set', setting, 'branch to:', options.set[1]);
   branchData[setting] = options.set[1];
@@ -102,10 +102,15 @@ if (options.set) {
 /*
  * Reading and writing the branches file
  */
-function readBranchesFile() {
-  if (!fs.existsSync(BRANCHES)) {
+function readBranchesFile(fail) {
+  fail = typeof fail !== 'undefined' ? fail : true;
+
+  if (!fs.existsSync(BRANCHES) && fail) {
     console.error(BRANCHES, 'does not exist');
     process.exit(2);
+  }
+  else if (!fs.existsSync(BRANCHES)) {
+    return {};
   }
 
   return jf.readFileSync(BRANCHES);
