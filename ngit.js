@@ -22,15 +22,31 @@ if (!isGit()) {
   process.exit(1);
 }
 
+
+/*
+ * Setting a named branch
+ */
 if (options.set) {
-  if (options.set[0] == 'c') {
-    var current = options.set[1];
-    console.log('Set current branch to:', current);
+  var branchData = {},
+  setting = '';
+
+  if (fs.existsSync(BRANCHES)) {
+    branchData = jf.readFileSync(BRANCHES);
   }
 
-  branchData = {
-    current: current
+  if (options.set[0] == 'c') {
+    setting = 'current'
   }
+  else if (options.set[0] == 'o') {
+    setting = 'other'
+  }
+  else {
+    console.error('Unknown named branch:', options.set[0]);
+    process.exit(2);
+  }
+
+  console.log('Set', setting, 'branch to:', options.set[1]);
+  branchData[setting] = options.set[1];
   jf.writeFileSync(BRANCHES, branchData);
 }
 
