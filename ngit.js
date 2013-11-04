@@ -1,18 +1,25 @@
 #!/usr/local/bin/node
 
-VERSION="0.0.0"
+stdio = require('stdio');
 
-console.log('Version:', VERSION);
+VERSION="0.0.1"
+
+options = stdio.getopt({
+  'version': {key: 'v', description: 'Current version'}
+});
+
+if (options.version) {
+  console.log('VERION:', VERSION);
+  return 0;
+}
 
 /*
 Inprogress:
 
-Setup cli parsing
+Setting my *current* branch
 
 Prioritized:
 
-VERSION="0.0.1"
-Setting my *current* branch
 Setting my *other* branch
 Add gitlist functionality
 VERSION="0.0.2"
@@ -54,6 +61,8 @@ DB Migrations
 
 Done:
 
+VERSION="0.0.0"
+Setup cli parsing
 Pick and intall cli parser
 Setup npm for project
 VERSIONing
