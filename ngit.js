@@ -18,7 +18,11 @@ if (options.version) {
   return 0;
 }
 
-if (!isGit()) {
+
+/*
+ * Require being in a git repo from now on
+ */
+if (!fs.existsSync('./.git') || !fs.statSync('./.git').isDirectory()) {
   process.stderr.write('Not in a git repo\n');
   process.exit(1);
 }
@@ -69,16 +73,6 @@ if (options.set) {
   console.log('Set', setting, 'branch to:', options.set[1]);
   branchData[setting] = options.set[1];
   jf.writeFileSync(BRANCHES, branchData);
-}
-
-function isGit() {
-  var gitPath = './.git';
-
-  if (!fs.existsSync(gitPath)) {
-    return false;
-  }
-
-  return fs.statSync(gitPath).isDirectory();
 }
 
 /*
