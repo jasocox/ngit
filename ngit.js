@@ -21,6 +21,11 @@ namedBranches = {
   o: 'other'
 };
 
+mainBranches = {
+  m: 'master',
+  d: 'develop'
+}
+
 
 /*
  * Display version info and exit
@@ -59,15 +64,15 @@ if (options.list) {
  * Checkout a named branch
  */
 if (options.checkout) {
-  if (!namedBranches[options.checkout[0]]) {
-    console.error('Unknown named branch:', options.checkout[0]);
+  if (!namedBranches[options.checkout[0]] && !mainBranches[options.checkout[0]]) {
+    console.error('Unknown branch:', options.checkout[0]);
     process.exit(2);
   }
 
-  var checkout = namedBranches[options.checkout[0]],
-  branchData = readBranchesFile();
+  var branchData = readBranchesFile();
+  var checkout = namedBranches[options.checkout[0]] ? branchData[namedBranches[options.checkout[0]]] : mainBranches[options.checkout[0]];
 
-  execString = 'git checkout ' + branchData[checkout];
+  execString = 'git checkout ' + checkout;
   exec(execString, function(err, stdout, stderr) {
     if (err !== null) {
       console.error(err.message);
@@ -113,7 +118,7 @@ function writeBranchesFile(data) {
 /*
 Inprogress:
 
-Setup *master* and *develop*
+Listing uses the named branches hash
 
 Prioritized:
 
@@ -159,6 +164,7 @@ DB Migrations
 
 Done:
 
+Setup *master* and *develop*
 Refactor named brach handling code
 Refactor reading and writing code
 Switching around branches
