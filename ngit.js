@@ -5,7 +5,7 @@ fs = require('fs'),
 jf = require('jsonfile'),
 exec = require('child_process').exec;
 
-var VERSION = "0.0.2",
+var VERSION="0.0.3",
 BRANCHES = ".git_branches";
 
 
@@ -123,12 +123,10 @@ function writeBranchesFile(data) {
 /*
 Inprogress:
 
-Listing uses the named branches hash
+Define what goes into 0.1.0
 
 Prioritized:
 
-VERSION="0.0.3"
-Define what goes into 0.1.0
 
 Backlog:
 
@@ -169,6 +167,7 @@ DB Migrations
 
 Done:
 
+VERSION="0.0.2"
 Setup *master* and *develop*
 Refactor named brach handling code
 Refactor reading and writing code
