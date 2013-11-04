@@ -11,7 +11,7 @@ options = stdio.getopt({
 });
 
 if (options.version) {
-  console.log('VERION:', VERSION);
+  console.log('VERSION:', VERSION);
   return 0;
 }
 
