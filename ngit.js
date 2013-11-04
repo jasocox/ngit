@@ -123,16 +123,13 @@ Define what goes into 0.1.0
 Backlog:
 
 Pick and install colorer
-Checkout branches from origin into local repos
+Named branch config to an external file
 
 Setting my branches
   - Release
   - Hotfix
   - 1-9
   - Unsetting
-  - Check if the branch exists
-  - Check origin if the branch exists, but doesn't in local
-  - Offer to checkout the branch from origin, if it doesn't exist
   - Max and Javon
 
 List of branches
@@ -148,6 +145,12 @@ General branch management
   - Updating, then merging a list of branches
   - Merging in a list of branches
   - Merging in a list of branches to a list of branches
+
+Origin
+  - Checkout branches from origin into local repos
+  - Check if the branch exists
+  - Check origin if the branch exists, but doesn't in local
+  - Offer to checkout the branch from origin, if it doesn't exist
 
 DB Migrations
   - Running migrations after swiching to a branch
