@@ -5,8 +5,9 @@ fs = require('fs'),
 jf = require('jsonfile'),
 exec = require('child_process').exec;
 
-VERSION="0.0.2"
-BRANCHES=".git_branches"
+var VERSION = "0.0.2",
+BRANCHES = ".git_branches";
+
 
 options = stdio.getopt({
   'version': {key: 'v', description: 'Current version'},
@@ -38,12 +39,7 @@ if (!fs.existsSync('./.git') || !fs.statSync('./.git').isDirectory()) {
  * List all named branches
  */
 if (options.list) {
-  if (!fs.existsSync(BRANCHES)) {
-    console.log('There is no', BRANCHES, 'file in this repo');
-    process.exit(0);
-  }
-
-  branchData = jf.readFileSync(BRANCHES);
+  var branchData = readBranchesFile();
 
   if (branchData['current']) {
     console.log('Current:\t', branchData['current']);
@@ -59,7 +55,7 @@ if (options.list) {
  */
 if (options.checkout) {
   var checkout = '',
-  branchData = jf.readFileSync(BRANCHES);
+  branchData = readBranchesFile();
 
   switch (options.checkout[0]) {
     case 'c':
@@ -86,12 +82,8 @@ if (options.checkout) {
  * Setting a named branch
  */
 if (options.set) {
-  var branchData = {},
-  setting = '';
-
-  if (fs.existsSync(BRANCHES)) {
-    branchData = jf.readFileSync(BRANCHES);
-  }
+  var setting = '',
+  branchData = readBranchesFile();
 
   if (options.set[0] == 'c') {
     setting = 'current'
@@ -106,17 +98,35 @@ if (options.set) {
 
   console.log('Set', setting, 'branch to:', options.set[1]);
   branchData[setting] = options.set[1];
-  jf.writeFileSync(BRANCHES, branchData);
+  writeBranchesFile(branchData);
+}
+
+
+/*
+ * Reading and writing the branches file
+ */
+function readBranchesFile() {
+  if (!fs.existsSync(BRANCHES)) {
+    console.error(BRANCHES, 'does not exist');
+    process.exit(2);
+  }
+
+  return jf.readFileSync(BRANCHES);
+}
+
+function writeBranchesFile(data) {
+  jf.writeFileSync(BRANCHES, data);
 }
 
 /*
 Inprogress:
 
-Switching around branches
+Refactor error handling code
+Setup *master* and *develop*
 
 Prioritized:
 
-Setup *master* and *develop*
+Refactor named brach handling code
 VERSION="0.0.3"
 
 Backlog:
@@ -155,6 +165,9 @@ DB Migrations
   - Rolling back the list of migrations not in a branch
 
 Done:
+
+Refactor reading and writing code
+Switching around branches
 
 VERSION="0.0.1"
 Add gitlist functionality
