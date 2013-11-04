@@ -2,7 +2,8 @@
 
 stdio = require('stdio'),
 fs = require('fs'),
-jf = require('jsonfile');
+jf = require('jsonfile'),
+exec = require('child_process').exec;
 
 VERSION="0.0.2"
 BRANCHES=".git_branches"
@@ -10,6 +11,7 @@ BRANCHES=".git_branches"
 options = stdio.getopt({
   'version': {key: 'v', description: 'Current version'},
   'list': {key: 'l', description: 'List all named branches'},
+  'checkout': {key: 'c', args: 1, description: 'Checkout a branch'},
   'set': {key: 's', args: 2, description: 'Set a stored branch'}
 });
 
@@ -53,6 +55,34 @@ if (options.list) {
 
 
 /*
+ * Checkout a named branch
+ */
+if (options.checkout) {
+  var checkout = '',
+  branchData = jf.readFileSync(BRANCHES);
+
+  switch (options.checkout[0]) {
+    case 'c':
+      checkout = 'current';
+      break;
+    case 'o':
+      checkout = 'other';
+      break;
+    default:
+      console.error('Unknown named branch:', options.checkout[0]);
+      process.exit(2);
+  }
+
+  execString = 'git checkout ' + branchData[checkout];
+  exec(execString, function(err, stdout, stderr) {
+    if (err !== null) {
+      console.error(err.message);
+    }
+  });
+}
+
+
+/*
  * Setting a named branch
  */
 if (options.set) {
@@ -82,11 +112,11 @@ if (options.set) {
 /*
 Inprogress:
 
+Switching around branches
 
 Prioritized:
 
 Setup *master* and *develop*
-Switching around branches
 VERSION="0.0.3"
 
 Backlog:
