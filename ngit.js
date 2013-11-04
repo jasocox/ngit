@@ -62,6 +62,9 @@ Setting my branches
   - Hotfix
   - 1-9
   - Unsetting
+  - Check if the branch exists
+  - Check origin if the branch exists, but doesn't in local
+  - Offer to checkout the branch from origin, if it doesn't exist
   - Max and Javon
 
 List of branches
