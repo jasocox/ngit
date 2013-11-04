@@ -16,6 +16,11 @@ options = stdio.getopt({
   'set': {key: 's', args: 2, description: 'Set a stored branch'}
 });
 
+namedBranches = {
+  c: 'current',
+  o: 'other'
+};
+
 
 /*
  * Display version info and exit
@@ -54,20 +59,13 @@ if (options.list) {
  * Checkout a named branch
  */
 if (options.checkout) {
-  var checkout = '',
-  branchData = readBranchesFile();
-
-  switch (options.checkout[0]) {
-    case 'c':
-      checkout = 'current';
-      break;
-    case 'o':
-      checkout = 'other';
-      break;
-    default:
-      console.error('Unknown named branch:', options.checkout[0]);
-      process.exit(2);
+  if (!namedBranches[options.checkout[0]]) {
+    console.error('Unknown named branch:', options.checkout[0]);
+    process.exit(2);
   }
+
+  var checkout = namedBranches[options.checkout[0]],
+  branchData = readBranchesFile();
 
   execString = 'git checkout ' + branchData[checkout];
   exec(execString, function(err, stdout, stderr) {
@@ -82,19 +80,13 @@ if (options.checkout) {
  * Setting a named branch
  */
 if (options.set) {
-  var setting = '',
-  branchData = readBranchesFile();
-
-  if (options.set[0] == 'c') {
-    setting = 'current'
-  }
-  else if (options.set[0] == 'o') {
-    setting = 'other'
-  }
-  else {
+  if (!namedBranches[options.set[0]]) {
     console.error('Unknown named branch:', options.set[0]);
     process.exit(2);
   }
+
+  var setting = namedBranches[options.set[0]],
+  branchData = readBranchesFile();
 
   console.log('Set', setting, 'branch to:', options.set[1]);
   branchData[setting] = options.set[1];
@@ -121,17 +113,15 @@ function writeBranchesFile(data) {
 /*
 Inprogress:
 
-Refactor error handling code
 Setup *master* and *develop*
 
 Prioritized:
 
-Refactor named brach handling code
 VERSION="0.0.3"
+Define what goes into 0.1.0
 
 Backlog:
 
-Define what goes into 0.1.0
 Pick and install colorer
 Checkout branches from origin into local repos
 
@@ -166,6 +156,7 @@ DB Migrations
 
 Done:
 
+Refactor named brach handling code
 Refactor reading and writing code
 Switching around branches
 
