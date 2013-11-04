@@ -167,21 +167,23 @@ DB Migrations
 
 Done:
 
-VERSION="0.0.2"
+VERSION="0.0.3"
 Setup *master* and *develop*
 Refactor named brach handling code
 Refactor reading and writing code
 Switching around branches
 
-VERSION="0.0.1"
+VERSION="0.0.2"
 Add gitlist functionality
 Setting my *other* branch
 Setting my *current* branch
 
-VERSION="0.0.0"
+VERSION="0.0.1"
 Setup cli parsing
 Pick and intall cli parser
 Setup npm for project
 VERSIONing
+
+VERSION="0.0.0"
 
  */
