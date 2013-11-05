@@ -147,7 +147,7 @@ Updating branch
 
 Prioritized:
 
-Check if the branch exists when setting
+Check if the branch exists when setting, merging, etc.
 VERSION="0.1.0"
 Define what goes in VERSION="0.2.0"
 
@@ -161,12 +161,12 @@ Define what commands can be run together, what can't, and ordering
 Setting my branches
   - 1-9
   - Unsetting
-  - Max and Javon
+  - Max and Javon's, branches
 
 List of branches
   - colors to gitlist
   - Numberify branches to be able to set branch by number
-  - Interactive mode that lets you select/unselect branches for different modes
+  - Interactive mode that lets you select/unselect branches
 
 General branch management
   - Updating and merging
@@ -177,13 +177,13 @@ General branch management
 
 Origin
   - Checkout branches from origin into local repos
-  - Check origin if the branch exists, but doesn't in local
-  - Offer to checkout the branch from origin, if it doesn't exist
+  - When checking for branches, also check origin
+  - When setting a branch, offer to checkout the branch from origin, if it doesn't exist
 
 DB Migrations
   - Running migrations after swiching to a branch
-  - Getting a list of migrations no in another branch
-  - Rolling back the list of migrations not in a branch
+  - Getting a list of migrations not in another branch
+  - Roll back list of migrations not in a branch switching to
 
 Done:
 
