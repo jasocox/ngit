@@ -28,7 +28,7 @@ mainBranches = {
 
 
 /*
- * Display version info and exit
+ * Display version info and exit, if -v is specified
  */
 if (options.version) {
   console.log('VERSION:', VERSION);
@@ -138,6 +138,7 @@ Backlog:
 
 Pick and install colorer
 Named branch config to an external file
+Listing branches should use the named branch hash
 
 Setting my branches
   - 1-9
