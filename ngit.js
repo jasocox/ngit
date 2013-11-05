@@ -18,7 +18,9 @@ options = stdio.getopt({
 
 namedBranches = {
   c: 'current',
-  o: 'other'
+  o: 'other',
+  r: 'release',
+  h: 'hotfix'
 };
 
 mainBranches = {
@@ -56,6 +58,12 @@ if (options.list) {
   }
   if (branchData['other']) {
     console.log('Other:\t\t', branchData['other']);
+  }
+  if (branchData['release']) {
+    console.log('Release:\t', branchData['release']);
+  }
+  if (branchData['hotfix']) {
+    console.log('Hotfix:\t\t', branchData['hotfix']);
   }
 }
 
@@ -123,12 +131,10 @@ function writeBranchesFile(data) {
 /*
 Inprogress:
 
-Setting branch release
-Setting branch hotfix
+Merging branch
 
 Prioritized:
 
-Merging branch
 Updating branch
 Check if the branch exists when setting
 VERSION="0.1.0"
@@ -168,6 +174,9 @@ DB Migrations
   - Rolling back the list of migrations not in a branch
 
 Done:
+
+Setting branch release
+Setting branch hotfix
 
 VERSION="0.0.3"
 Setup *master* and *develop*
