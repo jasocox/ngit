@@ -90,15 +90,23 @@ if (options.set) {
  * Checkout a named branch
  */
 if (options.checkout) {
-  if (!namedBranches[options.checkout[0]] && !mainBranches[options.checkout[0]]) {
-    console.error('Unknown branch:', options.checkout[0]);
+  gitExec('checkout', options.checkout[0]);
+}
+
+
+/*
+ * Execute git command on a branch
+ */
+function gitExec(command, branch) {
+  if (!namedBranches[branch] && !mainBranches[branch]) {
+    console.error('Unknown branch:', branch);
     process.exit(2);
   }
 
   var branchData = readBranchesFile();
-  var checkout = namedBranches[options.checkout[0]] ? branchData[namedBranches[options.checkout[0]]] : mainBranches[options.checkout[0]];
+  var branchName = namedBranches[branch] ? branchData[namedBranches[branch]] : mainBranches[branch];
 
-  execString = 'git checkout ' + checkout;
+  execString = 'git ' + command + ' ' + branchName;
   exec(execString, function(err, stdout, stderr) {
     if (err !== null) {
       console.error(err.message);
