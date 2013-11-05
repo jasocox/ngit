@@ -13,6 +13,7 @@ options = stdio.getopt({
   'version': {key: 'v', description: 'Current version'},
   'list': {key: 'l', description: 'List all named branches'},
   'checkout': {key: 'c', args: 1, description: 'Checkout a branch'},
+  'merge': {key: 'm', args: 1, description: 'Merge a branch'},
   'set': {key: 's', args: 2, description: 'Set a stored branch'}
 });
 
@@ -87,12 +88,15 @@ if (options.set) {
 
 
 /*
- * Checkout a named branch
+ * Git branch commands
  */
 if (options.checkout) {
   gitExec('checkout', options.checkout[0]);
 }
 
+if (options.merge) {
+  gitExec('merge', options.merge[0]);
+}
 
 /*
  * Execute git command on a branch
@@ -139,11 +143,10 @@ function writeBranchesFile(data) {
 /*
 Inprogress:
 
-Merging branch
+Updating branch
 
 Prioritized:
 
-Updating branch
 Check if the branch exists when setting
 VERSION="0.1.0"
 Define what goes in VERSION="0.2.0"
@@ -183,6 +186,7 @@ DB Migrations
 
 Done:
 
+Merging branch
 Setting branch release
 Setting branch hotfix
 
