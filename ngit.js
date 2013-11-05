@@ -69,6 +69,24 @@ if (options.list) {
 
 
 /*
+ * Setting a named branch
+ */
+if (options.set) {
+  if (!namedBranches[options.set[0]]) {
+    console.error('Unknown named branch:', options.set[0]);
+    process.exit(2);
+  }
+
+  var setting = namedBranches[options.set[0]],
+  branchData = readBranchesFile(false);
+
+  console.log('Set', setting, 'branch to:', options.set[1]);
+  branchData[setting] = options.set[1];
+  writeBranchesFile(branchData);
+}
+
+
+/*
  * Checkout a named branch
  */
 if (options.checkout) {
@@ -86,24 +104,6 @@ if (options.checkout) {
       console.error(err.message);
     }
   });
-}
-
-
-/*
- * Setting a named branch
- */
-if (options.set) {
-  if (!namedBranches[options.set[0]]) {
-    console.error('Unknown named branch:', options.set[0]);
-    process.exit(2);
-  }
-
-  var setting = namedBranches[options.set[0]],
-  branchData = readBranchesFile(false);
-
-  console.log('Set', setting, 'branch to:', options.set[1]);
-  branchData[setting] = options.set[1];
-  writeBranchesFile(branchData);
 }
 
 
