@@ -156,6 +156,7 @@ Backlog:
 Pick and install colorer
 Named branch config to an external file
 Listing branches should use the named branch hash
+Define what commands can be run together, what can't, and ordering
 
 Setting my branches
   - 1-9
