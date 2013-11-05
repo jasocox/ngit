@@ -123,10 +123,16 @@ function writeBranchesFile(data) {
 /*
 Inprogress:
 
-Define what goes into 0.1.0
+Setting branch release
+Setting branch hotfix
 
 Prioritized:
 
+Merging branch
+Updating branch
+Check if the branch exists when setting
+VERSION="0.1.0"
+Define what goes in VERSION="0.2.0"
 
 Backlog:
 
@@ -134,8 +140,6 @@ Pick and install colorer
 Named branch config to an external file
 
 Setting my branches
-  - Release
-  - Hotfix
   - 1-9
   - Unsetting
   - Max and Javon
@@ -146,8 +150,6 @@ List of branches
   - Interactive mode that lets you select/unselect branches for different modes
 
 General branch management
-  - Merging
-  - Updating
   - Updating and merging
   - Merging a list of branches
   - Updating, then merging a list of branches
@@ -156,7 +158,6 @@ General branch management
 
 Origin
   - Checkout branches from origin into local repos
-  - Check if the branch exists
   - Check origin if the branch exists, but doesn't in local
   - Offer to checkout the branch from origin, if it doesn't exist
 
