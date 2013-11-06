@@ -9,6 +9,7 @@
   "dependencies": {
     "stdio": "0.1.x",
     "jsonfile": "1.1.x",
-    "execSync": "1.0.x"
+    "execSync": "1.0.x",
+    "underscore": "1.5.x"
   }
 }

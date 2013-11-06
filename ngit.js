@@ -4,6 +4,7 @@ stdio = require('stdio'),
 fs = require('fs'),
 jf = require('jsonfile'),
 sync = require('execSync');
+_ = require('underscore');
 
 var VERSION="0.0.3",
 BRANCHES = ".git_branches";
@@ -81,9 +82,12 @@ if (options.set) {
 
   var setting = namedBranches[options.set[0]],
   branchData = readBranchesFile(false);
+  branchName = options.set[1];
 
-  console.log('Set', setting, 'branch to:', options.set[1]);
-  branchData[setting] = options.set[1];
+  ensureBranchExists(branchName);
+
+  console.log('Set', setting, 'branch to:', branchName);
+  branchData[setting] = branchName;
   writeBranchesFile(branchData);
 }
 
@@ -127,8 +131,26 @@ function gitExec(command, branch) {
     console.error(results.stdout);
     process.exit(results.code);
   }
+
+  return results.stdout;
 }
 
+
+/*
+ * Check if a branch exists
+ */
+function branchExists(branch) {
+  branchList = _.map(gitExec('branch').split('\n'), function(line) {return line.replace('*', ' ').trim()});
+
+  return _.contains(branchList, branch);
+}
+
+function ensureBranchExists(branch) {
+  if (!branchExists(branch)) {
+    console.error('Branch does not exist:', branch);
+    process.exit(3);
+  }
+}
 
 /*
  * Reading and writing the branches file
@@ -154,11 +176,10 @@ function writeBranchesFile(data) {
 /*
 Inprogress:
 
-Check if the branch exists when setting, merging, etc.
+VERSION="0.1.0"
 
 Prioritized:
 
-VERSION="0.1.0"
 Define what goes in VERSION="0.2.0"
 
 Backlog:
@@ -197,6 +218,7 @@ DB Migrations
 
 Done:
 
+Check if the branch exists when setting, merging, etc.
 Updating branch
 Merging branch
 Setting branch release
