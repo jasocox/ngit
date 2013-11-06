@@ -6,8 +6,8 @@ jf = require('jsonfile'),
 sync = require('execSync');
 _ = require('underscore');
 
-var VERSION="0.0.3",
-BRANCHES = ".git_branches";
+var VERSION="0.1.0",
+    BRANCHES = ".git_branches";
 
 
 options = stdio.getopt({
@@ -165,11 +165,10 @@ function writeBranchesFile(data) {
 /*
 Inprogress:
 
-VERSION="0.1.0"
+Define what goes in VERSION="0.2.0"
 
 Prioritized:
 
-Define what goes in VERSION="0.2.0"
 
 Backlog:
 
@@ -207,6 +206,7 @@ DB Migrations
 
 Done:
 
+VERSION="0.1.0"
 Listing branches should use the named branch hash
 Check if the branch exists when setting, merging, etc.
 Updating branch
