@@ -169,33 +169,39 @@ Define what goes in VERSION="0.2.0"
 
 Prioritized:
 
+0.2.0:
+
+Max and Javon's, branches
+Unsetting a branch
+Updating and merging a branch
+Checkout branches from origin into local repos
+When checking for branches, also check origin
+Pick and install colorer
+Colors to gitlist, by optional config
+Named branch config to an external file
 
 Backlog:
 
-Pick and install colorer
-Named branch config to an external file
 Define what commands can be run together, what can't, and ordering
 
 Setting my branches
   - 1-9
-  - Unsetting
-  - Max and Javon's, branches
 
 List of branches
-  - colors to gitlist
+  - Also lists local branches
+  - Gives warning if a branch no longer exists
+  - Listing local branches does not show branches used by a named branch
   - Numberify branches to be able to set branch by number
   - Interactive mode that lets you select/unselect branches
 
 General branch management
-  - Updating and merging
+  - Ensure branch exists for all branch commands
   - Merging a list of branches
   - Updating, then merging a list of branches
   - Merging in a list of branches
   - Merging in a list of branches to a list of branches
 
 Origin
-  - Checkout branches from origin into local repos
-  - When checking for branches, also check origin
   - When setting a branch, offer to checkout the branch from origin, if it doesn't exist
   - Offer to create and push branch if doesn't exist anywhere
 
