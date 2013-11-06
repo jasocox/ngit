@@ -54,20 +54,9 @@ if (!fs.existsSync('./.git') || !fs.statSync('./.git').isDirectory()) {
  * List all named branches
  */
 if (options.list) {
-  var branchData = readBranchesFile();
-
-  if (branchData['current']) {
-    console.log('Current:\t', branchData['current']);
-  }
-  if (branchData['other']) {
-    console.log('Other:\t\t', branchData['other']);
-  }
-  if (branchData['release']) {
-    console.log('Release:\t', branchData['release']);
-  }
-  if (branchData['hotfix']) {
-    console.log('Hotfix:\t\t', branchData['hotfix']);
-  }
+  _.each(readBranchesFile(), function(key, value) {
+    console.log(value, '-', key);
+  });
 }
 
 
@@ -186,7 +175,6 @@ Backlog:
 
 Pick and install colorer
 Named branch config to an external file
-Listing branches should use the named branch hash
 Define what commands can be run together, what can't, and ordering
 
 Setting my branches
@@ -219,6 +207,7 @@ DB Migrations
 
 Done:
 
+Listing branches should use the named branch hash
 Check if the branch exists when setting, merging, etc.
 Updating branch
 Merging branch
