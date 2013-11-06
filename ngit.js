@@ -165,15 +165,16 @@ function writeBranchesFile(data) {
 /*
 Inprogress:
 
-Define what goes in VERSION="0.2.0"
+Max and Javon's, branches
 
 Prioritized:
 
-0.2.0:
-
-Max and Javon's, branches
 Unsetting a branch
 Updating and merging a branch
+VERSION="0.1.1"
+
+0.2.0:
+
 Checkout branches from origin into local repos
 When checking for branches, also check origin
 Pick and install colorer
