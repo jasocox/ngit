@@ -22,6 +22,8 @@ options = stdio.getopt({
 namedBranches = {
   c: 'current',
   o: 'other',
+  m: 'max',
+  j: 'javon',
   r: 'release',
   h: 'hotfix'
 };
@@ -165,11 +167,10 @@ function writeBranchesFile(data) {
 /*
 Inprogress:
 
-Max and Javon's, branches
+Unsetting a branch
 
 Prioritized:
 
-Unsetting a branch
 Updating and merging a branch
 VERSION="0.1.1"
 
@@ -212,6 +213,8 @@ DB Migrations
   - Roll back list of migrations not in a branch switching to
 
 Done:
+
+Max and Javon's, branches
 
 VERSION="0.1.0"
 Listing branches should use the named branch hash
