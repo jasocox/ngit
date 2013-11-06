@@ -210,6 +210,7 @@ Origin
   - Checkout branches from origin into local repos
   - When checking for branches, also check origin
   - When setting a branch, offer to checkout the branch from origin, if it doesn't exist
+  - Offer to create and push branch if doesn't exist anywhere
 
 DB Migrations
   - Running migrations after swiching to a branch
