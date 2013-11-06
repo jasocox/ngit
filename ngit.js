@@ -3,7 +3,7 @@
 stdio = require('stdio'),
 fs = require('fs'),
 jf = require('jsonfile'),
-exec = require('child_process').exec;
+sync = require('execSync');
 
 var VERSION="0.0.3",
 BRANCHES = ".git_branches";
@@ -14,6 +14,7 @@ options = stdio.getopt({
   'list': {key: 'l', description: 'List all named branches'},
   'checkout': {key: 'c', args: 1, description: 'Checkout a branch'},
   'merge': {key: 'm', args: 1, description: 'Merge a branch'},
+  'update': {key: 'u', args: 1, description: 'Update a branch'},
   'set': {key: 's', args: 2, description: 'Set a stored branch'}
 });
 
@@ -98,24 +99,34 @@ if (options.merge) {
   gitExec('merge', options.merge[0]);
 }
 
+if (options.update) {
+  gitExec('checkout', options.update[0]);
+  gitExec('pull');
+}
+
 /*
  * Execute git command on a branch
  */
 function gitExec(command, branch) {
-  if (!namedBranches[branch] && !mainBranches[branch]) {
+  if (branch !== undefined && !namedBranches[branch] && !mainBranches[branch]) {
     console.error('Unknown branch:', branch);
     process.exit(2);
   }
 
-  var branchData = readBranchesFile();
-  var branchName = namedBranches[branch] ? branchData[namedBranches[branch]] : mainBranches[branch];
+  var execString = 'git ' + command;
 
-  execString = 'git ' + command + ' ' + branchName;
-  exec(execString, function(err, stdout, stderr) {
-    if (err !== null) {
-      console.error(err.message);
-    }
-  });
+  if (branch !== undefined) {
+    var branchData = readBranchesFile();
+    var branchName = namedBranches[branch] ? branchData[namedBranches[branch]] : mainBranches[branch];
+
+    execString += ' ' + branchName;
+  }
+
+  results = sync.exec(execString)
+  if (results.code !== 0) {
+    console.error(results.stdout);
+    process.exit(results.code);
+  }
 }
 
 
@@ -143,11 +154,10 @@ function writeBranchesFile(data) {
 /*
 Inprogress:
 
-Updating branch
+Check if the branch exists when setting, merging, etc.
 
 Prioritized:
 
-Check if the branch exists when setting, merging, etc.
 VERSION="0.1.0"
 Define what goes in VERSION="0.2.0"
 
@@ -187,6 +197,7 @@ DB Migrations
 
 Done:
 
+Updating branch
 Merging branch
 Setting branch release
 Setting branch hotfix
