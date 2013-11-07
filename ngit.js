@@ -13,10 +13,11 @@ var VERSION="0.1.0",
 options = stdio.getopt({
   'version': {key: 'v', description: 'Current version'},
   'list': {key: 'l', description: 'List all named branches'},
+  'set': {key: 's', args: 2, description: 'Set a stored branch'},
+  'unset': {key: 'r', args: 1, description: 'Unset a stored branch'},
   'checkout': {key: 'c', args: 1, description: 'Checkout a branch'},
   'merge': {key: 'm', args: 1, description: 'Merge a branch'},
-  'update': {key: 'u', args: 1, description: 'Update a branch'},
-  'set': {key: 's', args: 2, description: 'Set a stored branch'}
+  'update': {key: 'u', args: 1, description: 'Update a branch'}
 });
 
 namedBranches = {
@@ -82,6 +83,27 @@ if (options.set) {
   writeBranchesFile(branchData);
 }
 
+
+/*
+ * Unsetting a named branch
+ */
+if (options.unset) {
+  var branchName = namedBranches[options.unset[0]];
+
+  if (!branchName) {
+    console.error('Unknown named branch:', options.unset[0]);
+    process.exit(2);
+  }
+
+  branchData = readBranchesFile();
+  if (!branchData[branchName]) {
+    console.error('Named branch is not set:', options.unset[0]);
+    process.exit(2);
+  }
+
+  console.log('Unsetting', branchName);
+  writeBranchesFile(_.omit(branchData, branchName));
+}
 
 /*
  * Git branch commands
@@ -167,11 +189,10 @@ function writeBranchesFile(data) {
 /*
 Inprogress:
 
-Unsetting a branch
+Updating and merging a branch
 
 Prioritized:
 
-Updating and merging a branch
 VERSION="0.1.1"
 
 0.2.0:
@@ -214,6 +235,7 @@ DB Migrations
 
 Done:
 
+Unsetting a branch
 Max and Javon's, branches
 
 VERSION="0.1.0"
