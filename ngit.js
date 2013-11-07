@@ -17,7 +17,8 @@ options = stdio.getopt({
   'unset': {key: 'r', args: 1, description: 'Unset a stored branch'},
   'checkout': {key: 'c', args: 1, description: 'Checkout a branch'},
   'merge': {key: 'm', args: 1, description: 'Merge a branch'},
-  'update': {key: 'u', args: 1, description: 'Update a branch'}
+  'update': {key: 'u', args: 1, description: 'Update a branch'},
+  'update_merge': {key: 'g', args: 2, description: 'Update a branch and merge it into another'}
 });
 
 namedBranches = {
@@ -121,6 +122,13 @@ if (options.update) {
   gitExec('pull');
 }
 
+if (options.update_merge) {
+  gitExec('checkout', options.update_merge[0]);
+  gitExec('pull');
+  gitExec('checkout', options.update_merge[1]);
+  gitExec('merge', options.update_merge[0]);
+}
+
 /*
  * Execute git command on a branch
  */
@@ -189,11 +197,10 @@ function writeBranchesFile(data) {
 /*
 Inprogress:
 
-Updating and merging a branch
+VERSION="0.1.1"
 
 Prioritized:
 
-VERSION="0.1.1"
 
 0.2.0:
 
@@ -242,6 +249,7 @@ DB Migrations
 
 Done:
 
+Updating and merging a branch
 Unsetting a branch
 Max and Javon's, branches
 
