@@ -6,7 +6,7 @@ jf = require('jsonfile'),
 sync = require('execSync');
 _ = require('underscore');
 
-var VERSION="0.1.0",
+var VERSION="0.1.1",
     BRANCHES = ".git_branches";
 
 
@@ -197,11 +197,10 @@ function writeBranchesFile(data) {
 /*
 Inprogress:
 
-VERSION="0.1.1"
+Also lists local branches
 
 Prioritized:
 
-Also lists local branches
 Checkout branches from origin into local repos
 When checking for branches, also check origin
 VERSION="0.1.2"
@@ -250,6 +249,7 @@ DB Migrations
 
 Done:
 
+VERSION="0.1.1"
 Updating and merging a branch
 Unsetting a branch
 Max and Javon's, branches
