@@ -24,7 +24,7 @@ options = stdio.getopt({
 namedBranches = {
   c: 'current',
   o: 'other',
-  m: 'max',
+  x: 'max',
   j: 'javon',
   r: 'release',
   h: 'hotfix'
