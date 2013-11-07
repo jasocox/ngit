@@ -227,6 +227,13 @@ General branch management
 Origin
   - When setting a branch, offer to checkout the branch from origin, if it doesn't exist
   - Offer to create and push branch if doesn't exist anywhere
+  - Pushing
+  - Pushing a local branch
+
+Flow
+  - Git flow simplifications
+  - Offer to start a flow when branch doesn't exist
+  - Offer to push new flow to origin after created
 
 DB Migrations
   - Running migrations after swiching to a branch
