@@ -201,11 +201,13 @@ VERSION="0.1.1"
 
 Prioritized:
 
+Also lists local branches
+Checkout branches from origin into local repos
+When checking for branches, also check origin
+VERSION="0.1.2"
 
 0.2.0:
 
-Checkout branches from origin into local repos
-When checking for branches, also check origin
 Pick and install colorer
 Colors to gitlist, by optional config
 Named branch config to an external file
@@ -218,7 +220,6 @@ Setting my branches
   - 1-9
 
 List of branches
-  - Also lists local branches
   - Gives warning if a branch no longer exists
   - Listing local branches does not show branches used by a named branch
   - Numberify branches to be able to set branch by number
