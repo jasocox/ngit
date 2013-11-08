@@ -123,6 +123,8 @@ if (options.update) {
 }
 
 if (options.update_merge) {
+  ensureBranchesExist([options.update_merge[0], options.update_merge[1]]);
+
   gitExec('checkout', options.update_merge[0]);
   gitExec('pull');
   gitExec('checkout', options.update_merge[1]);
@@ -171,6 +173,10 @@ function ensureBranchExists(branch) {
     console.error('Branch does not exist:', branch);
     process.exit(3);
   }
+}
+
+function ensureBranchesExist(branches) {
+  _.forEach(branches, function(branch) { branchExists(branch) });
 }
 
 /*
