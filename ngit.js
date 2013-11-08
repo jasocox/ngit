@@ -61,6 +61,10 @@ if (options.list) {
   _.each(readBranchesFile(), function(key, value) {
     console.log(value, '-', key);
   });
+
+  console.log();
+  console.log('Local Branches:');
+  console.log(gitExec('branch'));
 }
 
 
@@ -203,12 +207,11 @@ function writeBranchesFile(data) {
 /*
 Inprogress:
 
-Also lists local branches
+When checking for branches, also check origin
 
 Prioritized:
 
 Checkout branches from origin into local repos
-When checking for branches, also check origin
 VERSION="0.1.2"
 
 0.2.0:
@@ -254,6 +257,8 @@ DB Migrations
   - Roll back list of migrations not in a branch switching to
 
 Done:
+
+Also lists local branches
 
 VERSION="0.1.1"
 Updating and merging a branch
