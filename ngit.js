@@ -266,45 +266,47 @@ function writeBranchesFile(data) {
 /*
 Inprogress:
 
+When checking for branches, also check origin
 
 Prioritized:
 
-When checking for branches, also check origin
-Checkout branches from origin into local repos
-VERSION="0.1.3"
-
-0.2.0:
-
 Pick and install colorer
 Colors to gitlist, by optional config
+VERSION="0.2.0"
+
+0.3.0:
+Optional config for ordering named branches for git list
+Merging a list of branches
+Updating, then merging a list of branches
+Numberify branches and prompt to be able to set branch by number
+Diff two branches
+List files changed between two branches
+Fetch before any command that uses origin (warning if fails)
+When setting a branch, offer to checkout the branch from origin, if it doesn't exist in local but does in origin
+Git flow simplifications
 
 Backlog:
 
 List of branches
-  - Numberify branches and prompt to be able to set branch by number
   - Interactive mode that lets you select/unselect branches
 
 General branch management
-  - Merging a list of branches
-  - Updating, then merging a list of branches
-  - Merging in a list of branches
+  - Merging in a list of branches to a branch
   - Merging in a list of branches to a list of branches
+  - Updating and merging in a list of branches to a branch
+  - Updating and merging in a list of branches to a list of branches
 
 Origin
-  - When setting a branch, offer to checkout the branch from origin, if it doesn't exist
-  - Fetch before any command that uses origin (warnging if fails)
-  - Pushing
-  - Pushing a local branch
   - Offer to create and push branch if doesn't exist anywhere
 
 Flow
-  - Git flow simplifications
   - Offer to start a flow when branch doesn't exist
   - Offer to push new flow to origin after created
 
 Merging
   - When merging, fail on merge conflict and keep track of progress
   - Allow a continue function that lets you continue after resolving a merge conflict
+  - Check to see if the merge is resolved before continuing
 
 DB Migrations
   - Running migrations after switching to a branch
