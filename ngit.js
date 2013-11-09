@@ -119,36 +119,32 @@ if (options.unset) {
  * Git branch commands
  */
 if (options.checkout) {
-  ensureBranches(options.checkout[0]);
-
-  gitExecAndLog('checkout', options.checkout[0]);
+  gitCommand(['checkout', options.checkout[0]]);
 }
 
 if (options.merge) {
-  ensureBranches(options.merge[0]);
-
-  gitExecAndLog('merge', options.merge[0]);
+  gitCommand(['merge', options.merge[0]]);
 }
 
 if (options.update) {
-  ensureBranches(options.update[0]);
-
-  gitExecAndLog('checkout', options.update[0]);
-  gitExecAndLog('pull');
+  gitCommand(['checkout', options.update[0]]);
+  gitCommand(['pull']);
 }
 
 if (options.update_merge) {
-  ensureBranchesExist([options.update_merge[0], options.update_merge[1]]);
-
-  gitExecAndLog('checkout', options.update_merge[0]);
-  gitExecAndLog('pull');
-  gitExecAndLog('checkout', options.update_merge[1]);
-  gitExecAndLog('merge', options.update_merge[0]);
+  gitCommand(['checkout', options.update_merge[0]]);
+  gitCommand(['pull']);
+  gitCommand(['checkout', options.update_merge[1]]);
+  gitCommand(['merge', options.update_merge[0]]);
 }
 
 /*
  * Execute git command on a branch
  */
+function gitCommand(command) {
+  gitExecAndLog(command[0], command[1]);
+}
+
 function gitExec(command, branch) {
   if (branch !== undefined && !namedBranches[branch] && !mainBranches[branch]) {
     console.error('Unknown branch:', branch);
