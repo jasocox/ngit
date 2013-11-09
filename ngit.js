@@ -216,10 +216,15 @@ function writeBranchesFile(data) {
 /*
 Inprogress:
 
-When checking for branches, also check origin
+Gives warning if a branch no longer exists
+Refactor error handling code
+Refactor command execution code
+Refactor option handling code
+Define what commands can be run together, what can't, and ordering
 
 Prioritized:
 
+When checking for branches, also check origin
 Checkout branches from origin into local repos
 VERSION="0.1.2"
 
@@ -231,19 +236,15 @@ Named branch config to an external file
 
 Backlog:
 
-Define what commands can be run together, what can't, and ordering
-
 Setting my branches
   - 1-9
 
 List of branches
-  - Gives warning if a branch no longer exists
   - Listing local branches does not show branches used by a named branch
   - Numberify branches to be able to set branch by number
   - Interactive mode that lets you select/unselect branches
 
 General branch management
-  - Ensure branch exists for all branch commands
   - Merging a list of branches
   - Updating, then merging a list of branches
   - Merging in a list of branches
@@ -251,9 +252,9 @@ General branch management
 
 Origin
   - When setting a branch, offer to checkout the branch from origin, if it doesn't exist
-  - Offer to create and push branch if doesn't exist anywhere
   - Pushing
   - Pushing a local branch
+  - Offer to create and push branch if doesn't exist anywhere
 
 Flow
   - Git flow simplifications
@@ -261,12 +262,13 @@ Flow
   - Offer to push new flow to origin after created
 
 DB Migrations
-  - Running migrations after swiching to a branch
+  - Running migrations after switching to a branch
   - Getting a list of migrations not in another branch
   - Roll back list of migrations not in a branch switching to
 
 Done:
 
+Ensure branch exists for all branch commands
 Log gitExec if you want
 Also lists local branches
 
