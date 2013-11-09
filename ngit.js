@@ -46,11 +46,27 @@ if (options.version) {
 
 
 /*
- * Require being in a git repo from now on
+ * Require git and cli sanitization
  */
 if (!fs.existsSync('./.git') || !fs.statSync('./.git').isDirectory()) {
   process.stderr.write('Not in a git repo\n');
   process.exit(1);
+}
+
+var optionSet = false;
+_.each([options.list, options.set, options.unset, options.checkout, options.merge, options.update, options.update_merge], function (option) {
+  if (option && optionSet) {
+    console.error('Cannot set more than on option at a time');
+    process.exit(2);
+  }
+  else if (option) {
+    optionSet = true;
+  }
+});
+
+if (!optionSet) {
+  console.error('Must specify an option');
+  process.exit(2);
 }
 
 
@@ -226,7 +242,6 @@ function writeBranchesFile(data) {
 /*
 Inprogress:
 
-Define what commands can be run together, what can't, and ordering
 Named branch config to an external file
 VERSION="0.1.2"
 
@@ -275,6 +290,7 @@ DB Migrations
 
 Done:
 
+Define what commands can be run together, what can't, and ordering
 Gives warning if a branch no longer exists
 Ensure branch exists for all branch commands
 Log gitExec if you want
