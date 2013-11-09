@@ -280,12 +280,8 @@ Colors to gitlist, by optional config
 
 Backlog:
 
-Setting my branches
-  - 1-9
-
 List of branches
-  - Listing local branches does not show branches used by a named branch
-  - Numberify branches to be able to set branch by number
+  - Numberify branches and prompt to be able to set branch by number
   - Interactive mode that lets you select/unselect branches
 
 General branch management
@@ -296,6 +292,7 @@ General branch management
 
 Origin
   - When setting a branch, offer to checkout the branch from origin, if it doesn't exist
+  - Fetch before any command that uses origin (warnging if fails)
   - Pushing
   - Pushing a local branch
   - Offer to create and push branch if doesn't exist anywhere
@@ -304,6 +301,10 @@ Flow
   - Git flow simplifications
   - Offer to start a flow when branch doesn't exist
   - Offer to push new flow to origin after created
+
+Merging
+  - When merging, fail on merge conflict and keep track of progress
+  - Allow a continue function that lets you continue after resolving a merge conflict
 
 DB Migrations
   - Running migrations after switching to a branch
