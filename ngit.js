@@ -6,7 +6,7 @@ jf = require('jsonfile'),
 sync = require('execSync');
 _ = require('underscore');
 
-var VERSION="0.1.1",
+var VERSION="0.1.2",
     BRANCHES = ".git_branches",
     NAMED_BRANCHES = ".named_branches";
 
@@ -266,7 +266,6 @@ function writeBranchesFile(data) {
 /*
 Inprogress:
 
-VERSION="0.1.2"
 
 Prioritized:
 
@@ -313,6 +312,7 @@ DB Migrations
 
 Done:
 
+VERSION="0.1.2"
 Named branch config to an external file
 Define what commands can be run together, what can't, and ordering
 Gives warning if a branch no longer exists
