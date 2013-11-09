@@ -58,8 +58,13 @@ if (!fs.existsSync('./.git') || !fs.statSync('./.git').isDirectory()) {
  * List all named branches
  */
 if (options.list) {
-  _.each(readBranchesFile(), function(key, value) {
-    console.log(value, '-', key);
+  _.each(readBranchesFile(), function(value, key) {
+    if (branchExists(value)) {
+      console.log(key, '-', value);
+    }
+    else {
+      console.log(key, '-', value, '(warning: no longer exists)');
+    }
   });
 
   console.log();
@@ -216,7 +221,6 @@ function writeBranchesFile(data) {
 /*
 Inprogress:
 
-Gives warning if a branch no longer exists
 Refactor error handling code
 Refactor command execution code
 Refactor option handling code
@@ -268,6 +272,7 @@ DB Migrations
 
 Done:
 
+Gives warning if a branch no longer exists
 Ensure branch exists for all branch commands
 Log gitExec if you want
 Also lists local branches
