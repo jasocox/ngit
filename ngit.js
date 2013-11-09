@@ -114,14 +114,20 @@ if (options.unset) {
  * Git branch commands
  */
 if (options.checkout) {
+  ensureBranches(options.checkout[0]);
+
   gitExecAndLog('checkout', options.checkout[0]);
 }
 
 if (options.merge) {
+  ensureBranches(options.merge[0]);
+
   gitExecAndLog('merge', options.merge[0]);
 }
 
 if (options.update) {
+  ensureBranches(options.update[0]);
+
   gitExecAndLog('checkout', options.update[0]);
   gitExecAndLog('pull');
 }
