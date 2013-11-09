@@ -127,15 +127,15 @@ if (options.merge) {
 }
 
 if (options.update) {
-  gitCommand(['checkout', options.update[0]]);
-  gitCommand(['pull']);
+  gitCommands([['checkout', options.update[0]],
+              ['pull']]);
 }
 
 if (options.update_merge) {
-  gitCommand(['checkout', options.update_merge[0]]);
-  gitCommand(['pull']);
-  gitCommand(['checkout', options.update_merge[1]]);
-  gitCommand(['merge', options.update_merge[0]]);
+  gitCommands([['checkout', options.update_merge[0]],
+              ['pull'],
+              ['checkout', options.update_merge[1]],
+              ['merge', options.update_merge[0]]]);
 }
 
 /*
@@ -143,6 +143,10 @@ if (options.update_merge) {
  */
 function gitCommand(command) {
   gitExecAndLog(command[0], command[1]);
+}
+
+function gitCommands(commands) {
+  _.each(commands, function(command) { gitCommand(command) });
 }
 
 function gitExec(command, branch) {
