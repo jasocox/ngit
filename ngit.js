@@ -123,7 +123,7 @@ if (options.checkout) {
 }
 
 if (options.merge) {
-  gitCommand(['merge', options.merge[0]]);
+  gitMergeBranch(options.merge[0]);
 }
 
 if (options.update) {
@@ -134,8 +134,13 @@ if (options.update) {
 if (options.update_merge) {
   gitCommands([['checkout', options.update_merge[0]],
               ['pull'],
-              ['checkout', options.update_merge[1]],
-              ['merge', options.update_merge[0]]]);
+              ['checkout', options.update_merge[1]]]);
+
+  gitMergeBranch(options.update_merge[0]);
+}
+
+function gitMergeBranch(branch) {
+  gitCommands(['merge', branch]);
 }
 
 /*
@@ -221,22 +226,20 @@ function writeBranchesFile(data) {
 /*
 Inprogress:
 
-Refactor error handling code
-Refactor command execution code
-Refactor option handling code
 Define what commands can be run together, what can't, and ordering
+Named branch config to an external file
+VERSION="0.1.2"
 
 Prioritized:
 
 When checking for branches, also check origin
 Checkout branches from origin into local repos
-VERSION="0.1.2"
+VERSION="0.1.3"
 
 0.2.0:
 
 Pick and install colorer
 Colors to gitlist, by optional config
-Named branch config to an external file
 
 Backlog:
 
