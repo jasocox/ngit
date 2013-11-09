@@ -7,7 +7,8 @@ sync = require('execSync');
 _ = require('underscore');
 
 var VERSION="0.1.1",
-    BRANCHES = ".git_branches";
+    BRANCHES = ".git_branches",
+    NAMED_BRANCHES = ".named_branches";
 
 
 options = stdio.getopt({
@@ -21,19 +22,26 @@ options = stdio.getopt({
   'update_merge': {key: 'g', args: 2, description: 'Update a branch and merge it into another'}
 });
 
-namedBranches = {
-  c: 'current',
-  o: 'other',
-  x: 'max',
-  j: 'javon',
-  r: 'release',
-  h: 'hotfix'
-};
+/*
+ * Example .named_branches file:
+{
+  "c": "current",
+  "o": "other",
+  "x": "max",
+  "j": "javon",
+  "r": "release",
+  "h": "hotfix"
+}
+ */
 
-mainBranches = {
+/*
+ * Used for flowdock specific branches, but if you are not using flowdock, you
+ * should do this anyway.
+ */
+var mainBranches = {
   m: 'master',
   d: 'develop'
-}
+};
 
 
 /*
@@ -42,6 +50,22 @@ mainBranches = {
 if (options.version) {
   console.log('VERSION:', VERSION);
   return 0;
+}
+
+
+/*
+ * Read named branches file, or set default
+ */
+var namedBranches;
+
+if (fs.existsSync(NAMED_BRANCHES)) {
+  namedBranches = jf.readFileSync(NAMED_BRANCHES);
+}
+else {
+  namedBranches = {
+    c: 'current',
+    o: 'other'
+  }
 }
 
 
@@ -242,7 +266,6 @@ function writeBranchesFile(data) {
 /*
 Inprogress:
 
-Named branch config to an external file
 VERSION="0.1.2"
 
 Prioritized:
@@ -290,6 +313,7 @@ DB Migrations
 
 Done:
 
+Named branch config to an external file
 Define what commands can be run together, what can't, and ordering
 Gives warning if a branch no longer exists
 Ensure branch exists for all branch commands
