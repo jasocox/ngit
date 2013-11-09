@@ -64,7 +64,7 @@ if (options.list) {
 
   console.log();
   console.log('Local Branches:');
-  console.log(gitExec('branch'));
+  gitExecAndLog('branch');
 }
 
 
@@ -114,25 +114,25 @@ if (options.unset) {
  * Git branch commands
  */
 if (options.checkout) {
-  gitExec('checkout', options.checkout[0]);
+  gitExecAndLog('checkout', options.checkout[0]);
 }
 
 if (options.merge) {
-  gitExec('merge', options.merge[0]);
+  gitExecAndLog('merge', options.merge[0]);
 }
 
 if (options.update) {
-  gitExec('checkout', options.update[0]);
-  gitExec('pull');
+  gitExecAndLog('checkout', options.update[0]);
+  gitExecAndLog('pull');
 }
 
 if (options.update_merge) {
   ensureBranchesExist([options.update_merge[0], options.update_merge[1]]);
 
-  gitExec('checkout', options.update_merge[0]);
-  gitExec('pull');
-  gitExec('checkout', options.update_merge[1]);
-  gitExec('merge', options.update_merge[0]);
+  gitExecAndLog('checkout', options.update_merge[0]);
+  gitExecAndLog('pull');
+  gitExecAndLog('checkout', options.update_merge[1]);
+  gitExecAndLog('merge', options.update_merge[0]);
 }
 
 /*
@@ -162,6 +162,9 @@ function gitExec(command, branch) {
   return results.stdout;
 }
 
+function gitExecAndLog(command, branch) {
+  console.log(gitExec(command, branch));
+}
 
 /*
  * Check if a branch exists
@@ -258,6 +261,7 @@ DB Migrations
 
 Done:
 
+Log gitExec if you want
 Also lists local branches
 
 VERSION="0.1.1"
