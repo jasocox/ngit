@@ -13,6 +13,7 @@ var VERSION="0.1.2",
 
 options = stdio.getopt({
   'version': {key: 'v', description: 'Current version'},
+  'origin': {key: 'o', description: 'Include origin features when executing command'},
   'list': {key: 'l', description: 'List all named branches'},
   'set': {key: 's', args: 2, description: 'Set a stored branch'},
   'unset': {key: 'r', args: 1, description: 'Unset a stored branch'},
@@ -112,6 +113,14 @@ if (options.list) {
   _.each(gitBranchList(), function(branch) {
     console.log(branch)
   });
+
+  if (options.origin) {
+    console.log();
+    console.log('Origin Branches:');
+    _.each(gitOriginBranchList(), function(branch) {
+      console.log(branch);
+    });
+  }
 }
 
 
@@ -255,9 +264,22 @@ function gitBranchList() {
   return branchList;
 }
 
+function gitOriginBranchList() {
+  branchList = gitExec('branch --all | grep remotes/origin').split('\n');
+  branchList.pop();
+
+  return cleanOriginBranchList(branchList);
+}
+
 function cleanBranchList(branchList) {
   return _.map(branchList, function(line) {
     return line.replace('*', ' ').trim();
+  });
+}
+
+function cleanOriginBranchList(branchList) {
+  return _.map(branchList, function(branch) {
+    return branch.replace('remotes/origin/', '');
   });
 }
 
@@ -333,6 +355,8 @@ DB Migrations
   - Roll back list of migrations not in a branch switching to
 
 Done:
+
+Optionally list remote/origin branches as well with git list
 
 VERSION="0.1.2"
 Named branch config to an external file
