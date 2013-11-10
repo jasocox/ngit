@@ -242,8 +242,20 @@ function branchExists(branch) {
   return _.contains(branchList, branch);
 }
 
+function originBranchExists(branch) {
+  branchList = cleanBranchList(gitOriginBranchList());
+
+  return _.contains(branchList, branch);
+}
+
 function ensureBranchExists(branch) {
-  if (!branchExists(branch)) {
+  existsLocal = branchExists(branch);
+
+  if (options.origin && !existsLocal && originBranchExists(branch)) {
+    console.log('Branch exists in origin, but not local. Please check it out locally to continue...');
+    process.exit(0);
+  }
+  else if (!existsLocal) {
     console.error('Branch does not exist:', branch);
     process.exit(3);
   }
@@ -307,11 +319,10 @@ function writeBranchesFile(data) {
 /*
 Inprogress:
 
-When checking for branches, also check origin
+Pick and install colorer
 
 Prioritized:
 
-Pick and install colorer
 Colors to gitlist, by optional config
 VERSION="0.2.0"
 
@@ -356,6 +367,7 @@ DB Migrations
 
 Done:
 
+When checking for branches, also check origin
 Optionally list remote/origin branches as well with git list
 
 VERSION="0.1.2"
