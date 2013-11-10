@@ -109,7 +109,9 @@ if (options.list) {
 
   console.log();
   console.log('Local Branches:');
-  gitExecAndLog('branch');
+  _.each(gitBranchList(), function(branch) {
+    console.log(branch)
+  });
 }
 
 
@@ -226,7 +228,7 @@ function gitExecAndLog(command, branch) {
  * Check if a branch exists
  */
 function branchExists(branch) {
-  branchList = _.map(gitExec('branch').split('\n'), function(line) {return line.replace('*', ' ').trim()});
+  branchList = cleanBranchList(gitBranchList());
 
   return _.contains(branchList, branch);
 }
@@ -240,6 +242,23 @@ function ensureBranchExists(branch) {
 
 function ensureBranchesExist(branches) {
   _.forEach(branches, function(branch) { branchExists(branch) });
+}
+
+
+/*
+ * Git branch helpers
+ */
+function gitBranchList() {
+  branchList = gitExec('branch').split('\n');
+  branchList.pop();
+
+  return branchList;
+}
+
+function cleanBranchList(branchList) {
+  return _.map(branchList, function(line) {
+    return line.replace('*', ' ').trim();
+  });
 }
 
 /*
