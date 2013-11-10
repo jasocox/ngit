@@ -5,6 +5,7 @@ fs = require('fs'),
 jf = require('jsonfile'),
 sync = require('execSync');
 _ = require('underscore');
+colors = require('colors');
 
 var VERSION="0.1.2",
     BRANCHES = ".git_branches",
@@ -81,7 +82,7 @@ if (!fs.existsSync('./.git') || !fs.statSync('./.git').isDirectory()) {
 var optionSet = false;
 _.each([options.list, options.set, options.unset, options.checkout, options.merge, options.update, options.update_merge], function (option) {
   if (option && optionSet) {
-    console.error('Cannot set more than on option at a time');
+    console.error('Cannot set more than on option at a time'.red);
     process.exit(2);
   }
   else if (option) {
@@ -90,7 +91,7 @@ _.each([options.list, options.set, options.unset, options.checkout, options.merg
 });
 
 if (!optionSet) {
-  console.error('Must specify an option');
+  console.error('Must specify an option'.red);
   process.exit(2);
 }
 
@@ -104,14 +105,19 @@ if (options.list) {
       console.log(key, '-', value);
     }
     else {
-      console.log(key, '-', value, '(warning: no longer exists)');
+      console.log(key, '-', value, '(warning: no longer exists)'.yellow);
     }
   });
 
   console.log();
   console.log('Local Branches:');
   _.each(gitBranchList(), function(branch) {
-    console.log(branch)
+    if (branch.indexOf('*') !== -1) {
+      console.log(branch.green);
+    }
+    else {
+      console.log(branch);
+    }
   });
 
   if (options.origin) {
@@ -129,7 +135,7 @@ if (options.list) {
  */
 if (options.set) {
   if (!namedBranches[options.set[0]]) {
-    console.error('Unknown named branch:', options.set[0]);
+    console.error('Unknown named branch:'.red, options.set[0]);
     process.exit(2);
   }
 
@@ -152,13 +158,13 @@ if (options.unset) {
   var branchName = namedBranches[options.unset[0]];
 
   if (!branchName) {
-    console.error('Unknown named branch:', options.unset[0]);
+    console.error('Unknown named branch:'.red, options.unset[0]);
     process.exit(2);
   }
 
   branchData = readBranchesFile();
   if (!branchData[branchName]) {
-    console.error('Named branch is not set:', options.unset[0]);
+    console.error('Named branch is not set:'.red, options.unset[0]);
     process.exit(2);
   }
 
@@ -207,7 +213,7 @@ function gitCommands(commands) {
 
 function gitExec(command, branch) {
   if (branch !== undefined && !namedBranches[branch] && !mainBranches[branch]) {
-    console.error('Unknown branch:', branch);
+    console.error('Unknown branch:'.red, branch);
     process.exit(2);
   }
 
@@ -252,11 +258,11 @@ function ensureBranchExists(branch) {
   existsLocal = branchExists(branch);
 
   if (options.origin && !existsLocal && originBranchExists(branch)) {
-    console.log('Branch exists in origin, but not local. Please check it out locally to continue...');
+    console.log('Branch exists in origin, but not local. Please check it out locally to continue...'.yellow);
     process.exit(0);
   }
   else if (!existsLocal) {
-    console.error('Branch does not exist:', branch);
+    console.error('Branch does not exist:'.red, branch);
     process.exit(3);
   }
 }
@@ -302,7 +308,7 @@ function readBranchesFile(fail) {
   fail = typeof fail !== 'undefined' ? fail : true;
 
   if (!fs.existsSync(BRANCHES) && fail) {
-    console.error(BRANCHES, 'does not exist');
+    console.error(BRANCHES, 'does not exist'.red);
     process.exit(2);
   }
   else if (!fs.existsSync(BRANCHES)) {
@@ -319,11 +325,10 @@ function writeBranchesFile(data) {
 /*
 Inprogress:
 
-Pick and install colorer
+Colors to gitlist, by optional config
 
 Prioritized:
 
-Colors to gitlist, by optional config
 VERSION="0.2.0"
 
 0.3.0:
@@ -367,6 +372,7 @@ DB Migrations
 
 Done:
 
+Pick and install colorer
 When checking for branches, also check origin
 Optionally list remote/origin branches as well with git list
 
