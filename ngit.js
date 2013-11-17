@@ -197,7 +197,7 @@ if (options.update_merge) {
 }
 
 function gitMergeBranch(branch) {
-  gitCommands(['merge', branch]);
+  gitCommand(['merge', branch]);
 }
 
 /*
