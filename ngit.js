@@ -1,15 +1,15 @@
 #!/usr/local/bin/node
 
-stdio = require('stdio'),
-fs = require('fs'),
-jf = require('jsonfile'),
-sync = require('execSync');
-_ = require('underscore');
-colors = require('colors');
+var stdio           = require('stdio'),
+    fs              = require('fs'),
+    jf              = require('jsonfile'),
+    sync            = require('execSync'),
+    _               = require('underscore'),
+    colors          = require('colors');
 
-var VERSION="0.1.2",
-    BRANCHES = ".git_branches",
-    NAMED_BRANCHES = ".named_branches";
+var VERSION         = "0.1.2",
+    BRANCHES        = ".git_branches",
+    NAMED_BRANCHES  = ".named_branches";
 
 
 options = stdio.getopt({
@@ -139,9 +139,9 @@ if (options.set) {
     process.exit(2);
   }
 
-  var setting = namedBranches[options.set[0]],
-  branchData = readBranchesFile(false);
-  branchName = options.set[1];
+  var setting     = namedBranches[options.set[0]],
+      branchName  = options.set[1],
+      branchData  = readBranchesFile(false);
 
   ensureBranchExists(branchName);
 
@@ -162,7 +162,7 @@ if (options.unset) {
     process.exit(2);
   }
 
-  branchData = readBranchesFile();
+  var branchData = readBranchesFile();
   if (!branchData[branchName]) {
     console.error('Named branch is not set:'.red, options.unset[0]);
     process.exit(2);
@@ -171,6 +171,7 @@ if (options.unset) {
   console.log('Unsetting', branchName);
   writeBranchesFile(_.omit(branchData, branchName));
 }
+
 
 /*
  * Git branch commands
@@ -200,6 +201,7 @@ function gitMergeBranch(branch) {
   gitCommand(['merge', branch]);
 }
 
+
 /*
  * Execute git command on a branch
  */
@@ -226,7 +228,7 @@ function gitExec(command, branch) {
     execString += ' ' + branchName;
   }
 
-  results = sync.exec(execString)
+  results = sync.exec(execString);
   if (results.code !== 0) {
     console.error(results.stdout);
     process.exit(results.code);
@@ -301,10 +303,13 @@ function cleanOriginBranchList(branchList) {
   });
 }
 
+
 /*
  * Reading and writing the branches file
  */
 function readBranchesFile(fail) {
+  var branchData;
+
   fail = typeof fail !== 'undefined' ? fail : true;
 
   if (!fs.existsSync(BRANCHES) && fail) {
@@ -312,10 +317,13 @@ function readBranchesFile(fail) {
     process.exit(2);
   }
   else if (!fs.existsSync(BRANCHES)) {
-    return {};
+    branchData = {};
+  }
+  else {
+    branchData = jf.readFileSync(BRANCHES);
   }
 
-  return jf.readFileSync(BRANCHES);
+  return branchData;
 }
 
 function writeBranchesFile(data) {
@@ -335,9 +343,9 @@ VERSION="0.2.0"
 Optional config for ordering named branches for git list
 Merging a list of branches
 Updating, then merging a list of branches
-Numberify branches and prompt to be able to set branch by number
 Diff two branches
 List files changed between two branches
+Numberify branches and prompt to be able to set branch by number
 Fetch before any command that uses origin (warning if fails)
 When setting a branch, offer to checkout the branch from origin, if it doesn't exist in local but does in origin
 Git flow simplifications
@@ -347,6 +355,11 @@ Backlog:
 List of branches
   - Interactive mode that lets you select/unselect branches
 
+Named Branches Config
+  - Global config for named branches
+  - Interactive config for named branches
+  - Interactive config for ordering and coloring of named branches
+
 General branch management
   - Merging in a list of branches to a branch
   - Merging in a list of branches to a list of branches
@@ -355,6 +368,7 @@ General branch management
 
 Origin
   - Offer to create and push branch if doesn't exist anywhere
+  - Option and/or offer to push after merging
 
 Flow
   - Offer to start a flow when branch doesn't exist
@@ -372,6 +386,7 @@ DB Migrations
 
 Done:
 
+When listing branches, also list origin
 Pick and install colorer
 When checking for branches, also check origin
 Optionally list remote/origin branches as well with git list
