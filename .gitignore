@@ -1,6 +1,7 @@
 *.swp
 .git_branches
 .named_branches
+todo.txt
 
 # Node
 node_modules/
