@@ -58,13 +58,42 @@ if (options.version) {
 /*
  * Read named branches file, or set default
  */
-var namedBranches;
+function namedBranches(branch) {
+  var name;
+
+  if (namedBranchesData[branch] === undefined) {
+    name = mainBranches[branch];
+  }
+  else if (typeof(namedBranchesData[branch]) === 'string') {
+    name = namedBranchesData[branch];
+  }
+  else if (typeof(namedBranchesData[branch]) === 'object') {
+    name = namedBranchesData[branch]['name'];
+  }
+
+  return name;
+}
+
+function namedBranchValue(branch) {
+  var value,
+      name = namedBranches(branch),
+      branchData = readBranchesFile();
+
+  if (mainBranches[branch] !== undefined) {
+    value = name;
+  }
+  else {
+    value = branchData[name];
+  }
+
+  return value;
+}
 
 if (fs.existsSync(NAMED_BRANCHES)) {
-  namedBranches = jf.readFileSync(NAMED_BRANCHES);
+  namedBranchesData = jf.readFileSync(NAMED_BRANCHES);
 }
 else {
-  namedBranches = {
+  namedBranchesData = {
     c: 'current',
     o: 'other'
   }
@@ -134,12 +163,16 @@ if (options.list) {
  * Setting a named branch
  */
 if (options.set) {
-  if (!namedBranches[options.set[0]]) {
+  if (!namedBranches(options.set[0])) {
     console.error('Unknown named branch:'.red, options.set[0]);
     process.exit(2);
   }
+  else if (mainBranches[options.set[0]] !== undefined) {
+    console.error('Cannot set main branch:'.red, namedBranches(options.set[0]));
+    process.exit(2);
+  }
 
-  var setting     = namedBranches[options.set[0]],
+  var setting     = namedBranches(options.set[0]),
       branchName  = options.set[1],
       branchData  = readBranchesFile(false);
 
@@ -155,10 +188,14 @@ if (options.set) {
  * Unsetting a named branch
  */
 if (options.unset) {
-  var branchName = namedBranches[options.unset[0]];
+  var branchName = namedBranches(options.unset[0]);
 
   if (!branchName) {
     console.error('Unknown named branch:'.red, options.unset[0]);
+    process.exit(2);
+  }
+  else if (mainBranches[options.unset[0]] !== undefined) {
+    console.error('Cannot unset main branch:'.red, namedBranches(options.unset[0]));
     process.exit(2);
   }
 
@@ -214,7 +251,7 @@ function gitCommands(commands) {
 }
 
 function gitExec(command, branch) {
-  if (branch !== undefined && !namedBranches[branch] && !mainBranches[branch]) {
+  if (branch !== undefined && !namedBranches(branch)) {
     console.error('Unknown branch:'.red, branch);
     process.exit(2);
   }
@@ -222,8 +259,7 @@ function gitExec(command, branch) {
   var execString = 'git ' + command;
 
   if (branch !== undefined) {
-    var branchData = readBranchesFile();
-    var branchName = namedBranches[branch] ? branchData[namedBranches[branch]] : mainBranches[branch];
+    var branchName = namedBranchValue(branch);
 
     execString += ' ' + branchName;
   }
