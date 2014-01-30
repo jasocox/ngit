@@ -1,0 +1,13 @@
+- There are two stashes, the first one is a poor attempt at config
+  enhancements.  Should mostly just try again. Also, some of the refactors are
+  good, but should be done independent of the new feature
+
+- Need to refactor the command executiong code. Make it only have one place to escape.
+
+- Need to write unit tests
+
+- Need to make the git repo only about ngit, and make another one for random small node projects
+
+- Need to rename ngit to something unused and more definitive.
+
+- Need to move the scrum board out
