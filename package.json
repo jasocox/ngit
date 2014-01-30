@@ -4,8 +4,8 @@
   "author": "Jason Cox <jasonwilburcox@gmail.com>",
   "repository": {
     "type": "git",
-     "url": "http://www.github.com/jasocox/ncli"
-   },
+    "url": "http://www.github.com/jasocox/ncli"
+  },
   "dependencies": {
     "stdio": "0.1.x",
     "jsonfile": "1.1.x",
@@ -13,5 +13,9 @@
     "underscore": "1.5.x",
     "colors": "0.6.x",
     "nodeunit": "0.8.x"
+  },
+  "devDependencies": {
+    "assert": "~1.0.0",
+    "grunt-contrib-watch": "~0.5.3"
   }
 }

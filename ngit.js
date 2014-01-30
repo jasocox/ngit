@@ -74,6 +74,16 @@ function namedBranches(branch) {
   return name;
 }
 
+function namedBranchColor(branch) {
+  var color;
+
+  if (typeof(namedBranchesData[branch]) === 'string') {
+    color = namedBranchesData[branch]['color'];
+  }
+
+  return color;
+}
+
 function namedBranchValue(branch) {
   var value,
       name = namedBranches(branch),
